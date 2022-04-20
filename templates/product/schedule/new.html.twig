@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} New schedule subscription {% endblock %}
+
+{% block body %}
+    <div class="d-flex mt-3">
+        <h1> Create a new schedule subscription </h1>
+        <a href="{{ path('app_subscription_index') }}" class="btn ms-auto my-auto btn-primary"> Back </a>
+    </div>
+    <div class="row mb-3 shadow p-2">
+        <div class="col">
+            {{ include('subscription/elements/_schedule_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

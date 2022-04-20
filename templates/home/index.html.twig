@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Home {% endblock %}
+
+{% block body %}
+    <h1> Stripe </h1>
+
+    
+    {# <p>
+        Prérequis : avoir un compte Stripe, et avoir les clés publiques / privés et les renseigner dans un fichier <i>.env</i>.
+        Dans cette exemple on utilisera les clés de test uniquement.
+    </p>
+    <p>
+        Exemples de clés dans un fichier <i>.env</i> : <br>
+        <b>STRIPE_PUBLIC_KEY_TEST</b>=<i>pk_test_51KYrpAGl9zFk4v1kZObpGR0m9rl4Xi3zq1kNhxTgtDkDNUAANd5UQzItrc6u8JAOyZ40ujHWVY5UNh3P7UMZzU7P00GDATwtT8</i>
+        <b>STRIPE_SECRET_KEY_TEST</b>=<i>sk_test_51KYrpAGl9zFk4v1kSpTrVBELyCWCbKkpns4Jn065UDywzx8LIH2IGzmgn0TLREw73HMkw8NbL39Ya6lVSrQqXbwu00hOkPGwTB</i>
+    </p>
+    <p> 
+        Pour gérer un Produit ou un Abonnement, il faudra d'abord le créer sur <a href="https://dashboard.stripe.com/test/dashboard">Stripe</a> 
+        puisqu'on aura besoin de son identifiant prix : <b>price_1KYuCyGl9zFk4v1kiSlOapzP</b> par exemple.
+    </p>
+    <p>
+        Dans notre cas, les utilisateurs doivent être authentifiés pour faire des achats. Il faudra donc inscrire un utilisateur si besoin.
+    </p>
+    <h2> L'Application permet de : </h2>
+    <ul>
+        <li> S'inscrire, se connecter, se déconnecter </li>
+        <li> Créer, modifier, supprimer un Produit </li>
+        <li> Créer, modifier, supprimer un Abonnement </li>
+        <li> Voir la liste des Produits </li>
+        <li> Voir la liste des Abonnements </li>
+        <li> Simuler la souscription à un abonnement (<a href="{{ path('app_shop') }}">Abonnement</a>)</li>
+        <li> Simuler l'annulation d'un abonnement </li>
+    </ul> #}
+
+{% endblock %}

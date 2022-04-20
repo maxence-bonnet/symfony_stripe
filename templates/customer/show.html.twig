@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Customer {% endblock %}
+
+{% block body %}
+    <h1> Customer </h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th> Id </th>
+                <td> {{ customer.id }} </td>
+            </tr>
+            <tr>
+                <th> User </th>
+                <td> {{ customer.user.email }} </td>
+            </tr>
+            <tr>
+                <th> StripeCustomerId </th>
+                <td> {{ customer.stripeCustomerId }} </td>
+            </tr>
+            <tr>
+                <th> TestClock </th>
+                <td> {{ customer.testClock ? customer.testClock.frozenTime|date('Y-m-d H:i:s') : 'none' }} </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_customer_index') }}" class="btn btn-sm btn-primary"> Back </a>
+
+    {{ include('customer/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,75 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"> Navigation </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link {{ current_nav is defined and current_nav is same as ('home') ? 'active' }}" aria-current="page" href="{{ path('app_home') }}"> Home </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ current_nav is defined and current_nav is same as ('shop') ? 'active' }}" href="{{ path('app_shop_index') }}"> Shop </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ current_nav is defined and current_nav is same as ('my_order') ? 'active' }}" href="{{ path('app_my_subscription_index') }}"> My orders </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ current_nav is defined and current_nav is same as ('my_subscription') ? 'active' }}" href="{{ path('app_my_subscription_index') }}"> My subscriptions </a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" id="backoffice" data-bs-toggle="dropdown" aria-expanded="false">
+                        BackOffice
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="backoffice">
+                        <li>
+                            <a class="dropdown-item {{ current_nav is defined and current_nav is same as ('product_index') ? 'active' }}" href="{{ path('app_product_index') }}">
+                                Products
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item {{ current_nav is defined and current_nav is same as ('product_new') ? 'active' }}" href="{{ path('app_product_new') }}">
+                                Create Product 
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                Create Scheduled subscription
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item {{ current_nav is defined and current_nav is same as ('customer') ? 'active' }}" href="{{ path('app_customer_index') }}">
+                                Customers
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item {{ current_nav is defined and current_nav is same as ('customer_new') ? 'active' }}" href="{{ path('app_customer_new') }}">
+                                Create Customer
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item {{ current_nav is defined and current_nav is same as ('test_clock') ? 'active' }}" href="{{ path('app_test_clock_index') }}">
+                                Test Clocks
+                            </a>
+                        </li>
+                         <li>
+                            <a class="dropdown-item {{ current_nav is defined and current_nav is same as ('test_clock_new') ? 'active' }}" href="{{ path('app_test_clock_new') }}">
+                                Create Test Clock
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+                {% if app.user %}
+                        <a class="me-1 ms-auto btn btn-primary" href="#">{{ app.user.email }}</a>
+                        <a class="me-1 btn btn-primary" href="{{ path('app_logout') }}"> Logout </a>
+                {% else %}
+                        <a class="me-1 ms-auto btn btn-primary" href="{{ path('app_login') }}"> Login </a>
+                        <a class="me-1 btn btn-primary" href="{{ path('app_register') }}"> Register </a>
+                {% endif %}
+        </div>
+    </div>
+</nav>

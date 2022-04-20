@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Your Payment {% endblock %}
+
+{% block body %}
+    <h1> Your Payment </h1>
+    <div class="bg-light">
+        <div class="border rounded p-3">
+            <h3> Payment failure :( </h3> 
+            <p> Try again ? <a href="{{ path('app_shop_retry', payment_intent: payment_intent) }}"> Yes ! </a> | <a href="{{ path('app_shop_index') }}"> No thanks ! </a></p> 
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_shop_retry_subscription', {id: subscription.id}) }}" class="d-inline-block">
+    <input type="hidden" name="_token" value="{{ csrf_token('retry' ~ subscription.id) }}">
+    <button class="btn btn-sm btn-success"> Retry or update my payment </button>
+</form>

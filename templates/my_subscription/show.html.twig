@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Subscription : {{ subscription.price.product.name }} {% endblock %}
+
+{% block body %}
+    <h1> Subscription : {{ subscription.price.product.name }} </h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th> Name </th>
+                <td>{{ subscription.price.product.name }}</td>
+            </tr>
+            <tr>
+                <th> Description </th>
+                <td>{{ subscription.price.product.description }}</td>
+            </tr>
+            <tr>
+                <th> Status </th>
+                <td> 
+                    {% if subscription.status == 'incomplete' %}
+                        <span class="badge bg-info"> Incomplete </span>
+                    {% elseif subscription.status == 'active' %}
+                        <span class="badge bg-success"> Active </span> {% include "my_subscription/elements/_cancel_form.html.twig" %}
+                    {% elseif subscription.status == 'unpaid' %}
+                        <span class="badge bg-success"> Last payment incomplete </span> <a href="{{ path('app_shop_retry', {payment_intent: subscription.lastInvoiceId}) }}" class="btn btn-sm btn-primary"> Update my payment </a>
+                    {% elseif subscription.status == 'canceling' %}
+                        <span class="badge bg-warning"> Canceling </span> {% include "my_subscription/elements/_resume_form.html.twig" %}
+                    {% else %}
+                        <span class="badge bg-info"> {{ subscription.status }} </span>
+                    {% endif %}
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th> Created At </th>
+                <td> {{ subscription.createdAt|date('Y-m-d H:i:s') }} </td>
+            </tr>
+            {% if subscription.endsAt %}
+                <tr>
+                    <th> Ends At </th>
+                    <td> {{ subscription.endsAt|date('Y-m-d H:i:s') }} </td>
+                </tr>
+            {% endif %}
+            {% if subscription.nextInvoiceAt %}
+                <tr>
+                    <th> Next Invoice At </th>
+                    <td> {{ subscription.nextInvoiceAt|date('Y-m-d H:i:s') ~ ' UTC' }} </td>
+                </tr>
+            {% endif %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th> Stripe Subsription Id </th>
+                <td> {{ subscription.stripeSubscriptionId }} </td>
+            </tr>
+            <tr>
+                <th> Stripe Price Id </th>
+                <td> {{ subscription.price.stripePriceId }} </td>
+            </tr>
+            <tr>
+                <th> Stripe Product Id </th>
+                <td> {{ subscription.price.product.stripeProductId }} </td>
+            </tr>
+            {% if subscription.lastInvoiceId %}
+                <tr>
+                    <th> Stripe Last Invoice Id </th>
+                    <td> {{ subscription.lastInvoiceId }} </td>
+                </tr>
+            {% endif %}
+        </tfoot>
+    </table>
+{% endblock %}

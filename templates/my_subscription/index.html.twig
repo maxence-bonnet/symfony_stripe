@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} My subscriptions {% endblock %}
+
+{% block body %}
+    <h1> My subscriptions list </h1>
+
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <th colspan="6"> Current subscriptions </th>
+            </tr>
+            <tr>
+                <th> Name </th>
+                <th> Status </th>
+                <th> Created At </th>
+                <th> Next invoice at</th>
+                <th> Notes : </th>
+                <th> Actions </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for subscription in subscriptions %}
+            {% if subscription.status != 'canceled' %}
+                <tr>
+                    <td> {{ subscription.price.product.name }} </td>
+                    <td> 
+                        {% if subscription.status == 'incomplete' %}
+                            <span class="badge bg-info"> Incomplete </span>
+                        {% elseif subscription.status == 'active' %}
+                            <span class="badge bg-success"> Active </span>
+                        {% elseif subscription.status == 'unpaid' %}
+                            <span class="badge bg-success"> last payment failed </span>
+                        {% elseif subscription.status == 'canceling' %}
+                            <span class="badge bg-warning"> Canceling </span>
+                        {% else %}
+                            <span class="badge bg-info"> {{ subscription.status }} </span>
+                        {% endif %}
+                    </td>
+                        
+                    <td> {{ subscription.createdAt|date('Y-m-d H:i:s') }} </td>
+
+                    <td> {{ subscription.nextInvoiceAt ? (subscription.nextInvoiceAt|date('Y-m-d H:i:s') ~ ' UTC') : 'none' }} </td>
+
+                    <td> {% if subscription.endsAt %} Your permissions remain active until {{ subscription.endsAt|date('Y-m-d H:i:s') }} {% endif %} </td>
+
+                    <td>
+                        <a href="{{ path('app_my_subscription_show', {id: subscription.id}) }}" class="btn btn-sm btn-primary"> Show </a>
+                        {% if subscription.status == 'unpaid' or subscription.status == 'incomplete' or subscription.status == 'past_due'%}
+                            {% include "my_subscription/elements/_retry_form.html.twig" %}
+                        {% endif %}
+                    </td>
+                </tr>              
+            {% endif %}
+          
+        {% else %}
+            <tr>
+                <td colspan="6"> No subscription yet </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <th colspan="4"> Past subscriptions </th>
+            </tr>
+            <tr>
+                <th> Name </th>
+                <th> Created At </th>
+                <th> End at </th>
+                <th> Actions </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for subscription in subscriptions %}
+            {% if subscription.status == 'canceled' %}
+            <tr>
+                <td> {{ subscription.price.product.name }} </td>
+                    
+                <td> {{ subscription.createdAt|date('Y-m-d H:i:s') }} </td>
+
+                <td> {{ subscription.endsAt ? (subscription.endsAt|date('Y-m-d H:i:s') ~ ' UTC'): 'none' }} </td>
+
+                <td>
+                    <a href="{{ path('app_my_subscription_show', {id: subscription.id}) }}" class="btn btn-sm btn-primary"> Show </a>
+                </td>
+            </tr>  
+            {% endif %}          
+        {% else %}
+            <tr>
+                <td colspan="5"> No past subscription yet </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('app_shop_index') }}" class="btn btn-sm btn-primary"> Get a new subscription ! </a>
+    {% if app.user.customer %}
+        <a href="{{ path('app_my_subscription_portal') }}" class="btn btn-sm btn-primary" target="_blank"> Go to my Stripe Customer Portal </a>
+    {% endif %}
+{% endblock %}

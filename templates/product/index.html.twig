@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Products index {% endblock %}
+
+{% block body %}
+    <h1> Products index </h1>
+
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <th colspan="4"> Subscriptions </th>
+            </tr>
+            <tr>
+                <th> Name </th>
+                <th> Stripe product Id </th>
+                <th> Pricing </th>
+                <th> Actions </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            {% if product.purpose == 'subscription' %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.stripeProductId }}</td>
+                    <td> 
+                        {% for price in product.prices %}
+                            {{ price.price }} € 
+                            {% if price.type == 'recurring' %}
+                            / {{ price.recurringCount }} {{ price.recurringInterval }}(s)
+                            {% else %}
+                            one time 
+                            {% endif %}
+                            : {{ price.stripePriceId }} <br>
+                        {% endfor %}                
+                    </td>
+                    <td>
+                        <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-sm btn-primary"> Show </a>
+                        <a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn btn-sm btn-primary"> Edit </a>
+                    </td>
+                </tr>           
+            {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="5"> No subscription yet </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <th colspan="4"> Products </th>
+            </tr>
+            <tr>
+                <th> Name </th>
+                <th> Stripe product Id </th>
+                <th> Pricing </th>
+                <th> Actions </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            {% if product.purpose == 'product' %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.stripeProductId }}</td>
+                    <td> 
+                        {% for price in product.prices %}
+                            {{ price.price }} € 
+                            {% if price.type == 'recurring' %}
+                            / {{ price.recurringCount }} {{ price.recurringInterval }}(s)
+                            {% else %}
+                            one time 
+                            {% endif %}
+                            : {{ price.stripePriceId }} <br>
+                        {% endfor %}                
+                    </td>
+                    <td>
+                        <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-sm btn-primary"> Show </a>
+                        <a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn btn-sm btn-primary"> Edit </a>
+                    </td>
+                </tr>           
+            {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="5"> No product yet </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('app_product_new') }}" class="btn btn-primary"> Create new </a>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} New TestClock {% endblock %}
+
+{% block body %}
+    <div class="d-flex mt-3">
+        <h1> Create a new TestClock </h1>
+        <a href="{{ path('app_test_clock_index') }}" class="btn ms-auto my-auto btn-primary"> Back </a>
+    </div>
+    <div class="row mb-3 shadow p-2">
+        <div class="col">
+            {{ include('test_clock/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

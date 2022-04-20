@@ -1,0 +1,129 @@
+{# {% block javascripts %}
+    <script src="{{ asset('js/myformcollection.js') }}"></script>
+    <script>
+        window.addEventListener('load', () =>{
+            let myCollection = new DynamicFormCollection({
+                collectionItemClasses: ['mb-4', 'card', 'p-3', 'bg-light'],
+            })            
+        })
+    </script>
+{% endblock %}
+
+{{ form_start(form) }}
+    {{ form_row(form.product.name) }}
+    {{ form_row(form.product.description) }}
+    
+    <div id="subscription-prices" class="collectionHolder">
+        {% for price in form.product.prices %}
+            <div class="collectionItem overflow-visible subform mb-4 card p-2 bg-light">
+                <div id='scope__{{ loop.index }}__card'
+                        class="m-2 rounded-md">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 col-lg-2">
+                            {{ form_row(price.price, {
+                                'row_attr' : {'class': 'mb-0'},
+                                'attr': {'class': ' form-control price-price'},
+                                'label': 'Price',
+                            }) }}
+                        </div>
+                        <div class="col-12 col-sm-6 col-lg-2">
+                            {{ form_row(price.currency, {
+                                'row_attr' : {'class': 'mb-0'},
+                                'attr': {'class': ' form-control price-price'},
+                                'label': 'Currency',
+                            }) }}
+                        </div>
+                        <div class="col-12 col-sm-6 col-lg-2">
+                            {{ form_row(price.type, {
+                                'row_attr' : {'class': 'mb-0'},
+                                'attr': {'class': ' form-control price-type'},
+                                'label': 'Type of pricing',
+                            }) }}
+                        </div>
+                        <div class="col-lg-2"></div>
+                        <div class="col-12 col-sm-6 col-lg-2">
+                            {{ form_row(price.recurringCount, {
+                                'row_attr' : {'class': 'mb-0'},
+                                'attr': {'class': ' form-control price-price'},
+                                'label': 'Recurring Interval',
+                                'help': 'If recurring'
+                            }) }}
+                        </div>
+                        <div class="col-12 col-sm-6 col-lg-2">
+                            {{ form_row(price.recurringInterval, {
+                                'row_attr' : {'class': 'mb-0'},
+                                'attr': {'class': ' form-control price-price'},
+                                'label': 'Interval unit',
+                                'help': 'Maximum of one year interval allowed (1 year, 12 months, or 52 weeks)'
+                            }) }}
+                        </div>
+                        <div class="col-12 d-flex">
+                            <button type='button' class='btn btn-danger me-auto mt-auto'>
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="d-flex justify-content-center">
+        <span
+            id="subscription-prices-form-prototype"
+            data-prototype=
+            "<div id='scope__name__card' class='m-2 rounded-md'>
+                <div class='row'>
+                    <div class='col-12 col-sm-6 col-lg-2'>
+                        {{ form_row(form.product.prices.vars.prototype.price, {
+                            'row_attr' : {'class': 'mb-0'},
+                            'attr': {'class': ' form-control price-price'},
+                            'label': 'Price',
+                        })|e('html_attr') }}
+                    </div>
+                        <div class='col-12 col-sm-6 col-lg-2'>
+                            {{ form_row(form.product.prices.vars.prototype.currency, {
+                                'row_attr' : {'class': 'mb-0'},
+                                'attr': {'class': ' form-control price-price'},
+                                'label': 'Currency',
+                            })|e('html_attr') }}
+                        </div>
+                    <div class='col-12 col-sm-6 col-lg-2'>
+                        {{ form_row(form.product.prices.vars.prototype.type, {
+                            'row_attr' : {'class': 'mb-0'},
+                            'attr': {'class': ' form-control price-type'},
+                            'label': 'Type of pricing',
+                        })|e('html_attr') }}
+                    </div>
+                    <div class='col-2'></div>
+                    <div class='col-12 col-sm-6 col-lg-2'>
+                        {{ form_row(form.product.prices.vars.prototype.recurringCount, {
+                            'row_attr' : {'class': 'mb-0'},
+                            'attr': {'class': ' form-control price-price'},
+                            'label': 'Recurring Interval',
+                            'help': 'If recurring'
+                        })|e('html_attr') }}
+                    </div>
+                    <div class='col-12 col-sm-6 col-lg-2'>
+                        {{ form_row(form.product.prices.vars.prototype.recurringInterval, {
+                            'row_attr' : {'class': 'mb-0'},
+                            'attr': {'class': ' form-control price-price'},
+                            'label': 'Interval unit',
+                            'help': 'Maximum of one year interval allowed (1 year, 12 months, or 52 weeks)'
+                        })|e('html_attr') }}
+                    </div>
+                    <div class='col-12 d-flex'>
+                        <button type='button' class='btn btn-danger me-auto mt-auto'>
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>"
+        ></span>
+        <div class="text-start">
+            <button type="button" class="btn btn-secondary addSubformButton" data-target="subscription-prices">
+                Add new price
+            </button>
+        </div>
+    </div>
+    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }} #}

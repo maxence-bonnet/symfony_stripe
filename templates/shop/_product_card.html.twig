@@ -1,0 +1,26 @@
+<div class="card h-100">
+    <div class="card-body">
+        {# <img src="..." class="card-img-top" alt="..."> #}
+        <h5 class="card-title"> {{ product.name }} </h5>
+        <p class="card-text"> {{ product.description }} </p>
+        <p class="card-text"> Stripe prod_id : {{ product.stripeProductId }} </p>
+        {% for price in product.prices %}
+            <hr>
+            <p class="card-text"> 
+                Price : {{ price.price }} €                         
+                {% if price.type == 'recurring' %}
+                / {{ price.recurringCount }} {{ price.recurringInterval }}(s)
+                {% else %}
+                one time 
+                {% endif %}
+            </p>
+            <p class="card-text"> Stripe price_id : {{ price.stripePriceId }} </p>
+            <a href="{{ path('app_shop_checkout', {id: price.id}) }}" class="btn btn-primary"> {{ product.purpose == 'product' ? 'Buy ! ' : 'Subscribe !'}} </a>
+        {% endfor %}
+        {# <form action="/create-checkout-session" method="POST"> #}
+        {# <form action="{{ path('app_shop_subscription_checkout') }}" method="POST">
+            <p> {{ subscription.priceMonth }} € / Mois</p>
+            <button type="submit" class="btn btn-primary"> S'abonner </button>
+        </form>   #}
+    </div>
+</div>

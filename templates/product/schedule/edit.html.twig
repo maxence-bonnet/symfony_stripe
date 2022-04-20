@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Edit a scheduled subscription {% endblock %}
+
+{% block body %}
+    <div class="d-flex mt-3">
+        <h1> Edit a scheduled subscription </h1>
+        <a href="{{ path('app_subscription_index') }}" class="btn ms-auto my-auto btn-primary"> Back </a>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            {{ include('subscription/elements/_schedule_form.html.twig') }}
+        </div>
+    </div>
+    
+    {{ include('subscription/elements/_delete_form.html.twig') }}
+{% endblock %}

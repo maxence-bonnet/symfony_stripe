@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} New Customer {% endblock %}
+
+{% block body %}
+    <div class="d-flex mt-3">
+        <h1> Create a new Customer </h1>
+        <a href="{{ path('app_customer_index') }}" class="btn ms-auto my-auto btn-primary"> Back </a>
+    </div>
+    <div class="row mb-3 shadow p-2">
+        <div class="col">
+            {{ include('customer/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}
